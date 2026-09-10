@@ -1,0 +1,81 @@
+Below is a complete Python implementation of an Air2Water-style lake surface temperature model. This model uses an ordinary differential equation (ODE) to simulate water temperature based on air temperature. The model parameters are calibrated using the least squares optimization method, and the goodness-of-fit is reported using the Root Mean Square Error (RMSE). Finally, a plot is generated to compare the simulated and observed water temperatures.
+
+```python
+import numpy as np
+from scipy.integrate import odeint
+from scipy.optimize import minimize
+import matplotlib.pyplot as plt
+
+# Define the governing ODE for the Air2Water model
+def air2water_ode(Tw, t, Ta, alpha, beta, gamma):
+    # Linear relationship with air temperature and a decay term
+    dTw_dt = alpha * (Ta - Tw) + beta * (Ta - Tw)**2 + gamma
+    return dTw_dt
+
+# Function to simulate water temperature using the ODE
+def simulate_water_temperature(Ta, Tw_initial, params):
+    alpha, beta, gamma = params
+    # Time vector (assuming daily time steps)
+    t = np.arange(len(Ta))
+    # Solve the ODE
+    Tw_simulated = odeint(air2water_ode, Tw_initial, t, args=(Ta, alpha, beta, gamma))
+    return Tw_simulated.flatten()
+
+# Objective function for optimization (minimize RMSE)
+def objective_function(params, Ta, Tw_obs):
+    Tw_initial = Tw_obs[0]  # Initial water temperature
+    Tw_simulated = simulate_water_temperature(Ta, Tw_initial, params)
+    rmse = np.sqrt(np.mean((Tw_simulated - Tw_obs) ** 2))
+    return rmse
+
+# Calibrate model parameters using optimization
+def calibrate_model(Ta_obs, Tw_obs):
+    # Initial guess for parameters: alpha, beta, gamma
+    initial_params = [0.1, 0.01, 0.0]
+    # Minimize the objective function
+    result = minimize(objective_function, initial_params, args=(Ta_obs, Tw_obs), method='L-BFGS-B')
+    return result.x
+
+# Main function to run the model
+def run_model(Ta_obs, Tw_obs):
+    # Calibrate the model
+    calibrated_params = calibrate_model(Ta_obs, Tw_obs)
+    print(f"Calibrated Parameters: alpha={calibrated_params[0]}, beta={calibrated_params[1]}, gamma={calibrated_params[2]}")
+    
+    # Simulate water temperature with calibrated parameters
+    Tw_initial = Tw_obs[0]
+    Tw_simulated = simulate_water_temperature(Ta_obs, Tw_initial, calibrated_params)
+    
+    # Calculate goodness-of-fit metric (RMSE)
+    rmse = np.sqrt(np.mean((Tw_simulated - Tw_obs) ** 2))
+    print(f"Root Mean Square Error (RMSE): {rmse:.2f}")
+    
+    # Plot observed vs simulated water temperature
+    plt.figure(figsize=(10, 5))
+    plt.plot(Tw_obs, label='Observed Water Temperature', color='blue')
+    plt.plot(Tw_simulated, label='Simulated Water Temperature', color='red', linestyle='--')
+    plt.xlabel('Time (days)')
+    plt.ylabel('Water Temperature (°C)')
+    plt.title('Observed vs Simulated Water Temperature')
+    plt.legend()
+    plt.show()
+
+# Example usage with Ta_obs and Tw_obs
+# run_model(Ta_obs, Tw_obs)
+```
+
+### Explanation of the Implementation
+
+1. **Governing ODE**: The model uses a simple ODE that relates the rate of change of water temperature (`dTw_dt`) to the difference between air temperature (`Ta`) and water temperature (`Tw`). The parameters `alpha`, `beta`, and `gamma` control the influence of air temperature and other factors on water temperature.
+
+2. **Model Parameters**: The parameters `alpha`, `beta`, and `gamma` are initially guessed and then calibrated using optimization.
+
+3. **Numerical Solution**: The `odeint` function from SciPy is used to numerically solve the ODE over the time series.
+
+4. **Calibration Method**: The model parameters are calibrated using the `minimize` function from SciPy, which employs the L-BFGS-B optimization method to minimize the RMSE between simulated and observed water temperatures.
+
+5. **Goodness-of-Fit Metric**: RMSE is used to quantify the goodness-of-fit between the simulated and observed water temperatures.
+
+6. **Visualization**: A plot is generated to visually compare the simulated and observed water temperatures, providing an intuitive understanding of the model's performance.
+
+This implementation provides a straightforward approach to modeling lake surface temperature using air temperature data, with a focus on simplicity and ease of calibration.
