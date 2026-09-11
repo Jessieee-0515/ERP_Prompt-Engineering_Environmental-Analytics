@@ -20,8 +20,7 @@ the model's natural-language explanations and its actual code**.
 │                          (model version, timestamps)
 ├── Data/                  Data preparation script and processed calibration/validation CSVs
 ├── Validation/            Train/validation calibration + evaluation scripts, one per condition
-├── Results/               Final quantitative results table and all figures + the script that
-│                          produces them                     
+├── Results/               Final quantitative results table and all figures 
 ├── requirements.txt
 ├── environment_info.md    Exact model version(s) and API configuration used
 └── README.md              This file
@@ -55,8 +54,8 @@ python DATA/data_preparation.py
 ```
 
 This produces:
-- `data/processed/45004_1990_1999.csv` (calibration period)
-- `data/processed/45004_2000_2004.csv` (validation period)
+- `DATA/45004_1990_1999.csv` (calibration period)
+- `DATA/45004_2000_2004.csv` (validation period)
 
 ### 3. Generate code from each Prompt condition
 
@@ -69,7 +68,7 @@ This sends each of the six prompts in `prompts/` to a fixed, dated model snapsho
 `temperature=0`, as independent (history-free) requests, repeated `N_REPEATS` times per
 condition (default: 3). Outputs are saved to `generation/generation_outputs/`, and a full
 log (requested model, model actually returned by the API, token usage, timestamps) is
-written to `generation/generation_outputs/generation_log.csv`.
+written to `Generation/generation_log.csv`.
 
 ### 4. Calibrate and evaluate each representative generation
 
