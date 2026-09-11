@@ -7,8 +7,7 @@ in the README) is only possible while the same dated model snapshot remains avai
 
 ## Language model
 
-- **Provider / access method:** OpenAI API (`chat.completions`), not the ChatGPT web
-  interface. The web interface was used only during early, exploratory iteration on prompt
+- **Provider / access method:** OpenAI API (`chat.completions`). The web interface was used only during early, exploratory iteration on prompt
   wording (see `docs/known_issues.md` for why this distinction matters) and none of the
   data reported in the dissertation's quantitative results (Chapter 4) come from the web
   interface.
