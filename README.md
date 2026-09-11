@@ -15,8 +15,9 @@ the model's natural-language explanations and its actual code**.
 
 ```
 .
-├── Prompts/              Full text of all six Prompt conditions and 
-├── Generation_Code/            Batch generation script + generation logs (model version, timestamps)
+├── Prompts/               Full text of all six Prompt conditions and code of generated process
+├── Generation_Code/       Batch generation script + generation logs
+│                          (model version, timestamps)
 ├── Data/                  Data preparation script and processed calibration/validation CSVs
 ├── Validation/            Train/validation calibration + evaluation scripts, one per condition
 ├── Results/               Final quantitative results table and all figures + the script that
