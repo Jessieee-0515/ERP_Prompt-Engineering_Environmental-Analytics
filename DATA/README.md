@@ -20,8 +20,8 @@ Run:
    ```
    This resamples the raw observations to daily means, selects the `ATMP` and `WTMP`
    columns, drops rows with missing values in either column, and writes:
-   - `data/processed/45004_1990_1999.csv` (calibration period)
-   - `data/processed/45004_2000_2004.csv` (validation period)
+   - `DATA/45004_1990_1999.csv` (calibration period)
+   - `DATA/45004_2000_2004.csv` (validation period)
 
 
 ## Note on missing values
