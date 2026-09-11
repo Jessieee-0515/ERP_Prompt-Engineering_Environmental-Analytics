@@ -40,9 +40,8 @@ pipeline.
 
 ## Data window
 
-- Calibration period: 1990-01-01 to 1999-12-31 (approx. 3,650 daily records, subject to
-  missing-value gaps in the raw NDBC record)
-- Validation period: 2000-01-01 to 2004-12-31
+- Calibration period: 1990 to 1999
+- Validation period: 2000 to 2004
 - Note: the calibration and validation periods in the processed data do **not** start on the
   same calendar day of year (see `docs/known_issues.md`, "Calendar/seasonal-phase alignment"),
   which is relevant to any ODE that includes a seasonal forcing term indexed by an internal
