@@ -1,0 +1,8 @@
+Table 4.3. Comparison of the Mathematical Structures of the Models Generated
+Condition,Parameters (k),Quadratic term (Ta−Tw)²,Seasonal term,Threshold switching
+P1 Direct,3,Yes,No,No
+P2 Role,3,Yes,No,No
+P3 Few-shot,2,No,No,No
+P4 CoT,2,No,2/3,No
+P5 Verification,3,No,Yes,No
+P6 RAG,8,No,Yes,Yes

@@ -1,0 +1,8 @@
+Table 4.2. Numerical Methods and Calibration Algorithms Used in the Code Generated under the six Prompts Conditions
+Condition,k,Numerical Method,Calibration Method
+P1 Direct,3,odeint,L-BFGS-B (local)
+P2 Role,3,odeint,L-BFGS-B (local)
+P3 Few-shot,2,odeint,L-BFGS-B (local)
+P4 CoT,2,solve_ivp,Differential Evolution (global)
+P5 Verification,3,solve_ivp,Differential Evolution (global)
+P6 RAG,8,solve_ivp,Differential Evolution
