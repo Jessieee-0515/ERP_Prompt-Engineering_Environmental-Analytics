@@ -1,0 +1,18 @@
+"P5_Verification":"""You are provided with two paired daily time series: Ta (air temperature, °C) and Tw (water temperature, °C), each as a 1D numpy array of equal length N, assumed already loaded as Ta_obs and Tw_obs. Generate a complete Python implementation of an Air2Water-style lake surface temperature model. Your implementation should: (1) define the governing ODE; (2) implement all model parameters; (3) numerically solve the ODE; (4) calibrate the model parameters against the provided Tw_obs data using any optimization method of your choice; (5) report a goodness-of-fit metric; (6) produce a visualization comparing simulated vs observed water temperature. Return: 1. Python code 2. A brief explanation of the implementation and your choice of calibration method.
+
+  
+  Before giving your final answer, review your own draft for these issues:
+  - forcing data (e.g. air temperature) indexed/interpolated correctly by
+    time, not broadcast incorrectly
+  - any physical mechanism you describe (e.g. seasonal forcing) is actually
+    implemented in the ODE, not dropped
+  - any seasonal/time-dependent term uses the true calendar date, not an
+    internal clock that resets to zero each run
+  - the calibration method is suitable for a nonlinear, possibly multimodal
+    objective (avoid a purely local optimizer without justification)
+  - the ODE solver won't silently fail or diverge for extreme parameter
+    values
+  
+  If you find any issues, you must fix them directly in the code, not just
+  describe them. Give only the final corrected code, plus a short list of
+  what you changed and why."""
