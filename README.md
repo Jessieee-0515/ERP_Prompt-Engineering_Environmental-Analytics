@@ -26,3 +26,70 @@ the model's natural-language explanations and its actual code**.
 ├── environment_info.md    Exact model version(s) and API configuration used
 └── README.md              This file
 ```
+---
+
+## Reproducing the Study
+
+### 1. Environment setup
+
+```bash
+git clone https://github.com/Jessieee-0515/ERP_Prompt-Engineering_Environmental-Analytics.git
+cd ERP_Prompt-Engineering_Environmental-Analytics
+pip install -r requirements.txt
+```
+
+See `environment_info.md` for the exact model version, temperature setting, and API
+configuration used to generate the results reported in the dissertation. Because hosted LLM
+APIs can change or deprecate model versions over time, exact reproduction of the generation
+step is only guaranteed if the same dated model snapshot is still available.
+
+### 2. Prepare the data
+
+This study uses daily air temperature (ATMP) and water temperature (WTMP) observations from
+NOAA NDBC buoy station 45004 (Lake Superior). Raw NDBC data is not redistributed in this
+repository (see `data/README.md` for the download source and station details). To reproduce
+the processed calibration/validation CSVs from raw NDBC files:
+
+```bash
+python DATA/data_preparation.py
+```
+
+This produces:
+- `data/processed/45004_1990_1999.csv` (calibration period)
+- `data/processed/45004_2000_2004.csv` (validation period)
+
+### 3. Generate code from each Prompt condition
+
+```bash
+export OPENAI_API_KEY="your-api-key"
+python Generation/generate_prompts.py
+```
+
+This sends each of the six prompts in `prompts/` to a fixed, dated model snapshot at
+`temperature=0`, as independent (history-free) requests, repeated `N_REPEATS` times per
+condition (default: 3). Outputs are saved to `generation/generation_outputs/`, and a full
+log (requested model, model actually returned by the API, token usage, timestamps) is
+written to `generation/generation_outputs/generation_log.csv`.
+
+### 4. Calibrate and evaluate each representative generation
+
+For each Prompt condition, a representative generated script was manually adapted into a
+train/validation harness that:
+- reuses the condition's own ODE definition, objective function, and calibration call
+  verbatim (any modification is explicitly commented and disclosed in the script header),
+- calibrates only on the 1990–1999 period,
+- forward-simulates the calibrated parameters (no re-optimization) on the 2000–2004 period,
+- reports RMSE, MAE, NSE, R², and AIC for both periods.
+
+Because the code generated under P1 and P3 contained unresolved bugs in all three runs and could not be executed successfully, their calibration and validation results were excluded from the subsequent analysis. Therefore, only the results for P2, P3 (Simple), and P4–P6 are presented here.
+
+```bash
+python Validation/P2valid.py
+python Validation/P3valid.py
+python Validation/P4valid.py
+python Validation/P5valid.py
+python Validation/P6valid.py
+```
+
+Each script prints the calibrated parameters and full performance report, and produces a
+two-panel calibration/validation plot.
