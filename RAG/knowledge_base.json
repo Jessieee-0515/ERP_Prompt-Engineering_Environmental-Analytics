@@ -1,0 +1,114 @@
+[
+  {
+    "chunk_id": "CHUNK_1",
+    "layer": "core",
+    "source": "Piccolroaz et al. 2013 (HESS)",
+    "title": "Model positioning and provenance",
+    "text": "Air2Water is a semi-physical lumped-parameter model derived from the surface energy balance of a lake, used to convert air temperature into lake surface water temperature (epilimnion temperature). The core of the model is a first-order ordinary differential equation that accounts for the overall heat exchange between the atmosphere and the water body, as well as the heat exchange between the water body and the deeper water (hypolimnion), summarizing these processes with a set of physically meaningful parameters, without requiring detailed meteorological or hydrological input data. The full version contains eight parameters to be calibrated; the paper also presents simplified six-parameter and four-parameter versions."
+  },
+  {
+    "chunk_id": "CHUNK_1b",
+    "layer": "core",
+    "source": "General lake/ocean surface energy balance physical framework",
+    "title": "How the ODE is derived from physical energy conservation",
+    "text": "Any lumped-parameter ODE that predicts water temperature from air temperature essentially originates from the same physical starting point — the energy conservation equation of the surface water body. The net surface heat flux per unit area, Qnet, is composed of four components: Qnet = Qsw − Qlw − Qsensible − Qlatent (net shortwave radiation − net longwave radiation − sensible heat flux − latent heat flux). All four terms can be computed precisely and independently using meteorological variables, but this requires a large amount of input data. The core idea of lumped-parameter models (such as air2water) is to parameterize these four net flux terms collectively as a simple function of air temperature, water temperature, and time, rather than computing each term separately, so that air temperature alone can drive the model. Written in the general form of a differential equation: ρ·cp·V · dTw/dt = Qnet · A. Dividing both sides by ρ·cp·V, and substituting Qnet with a simplified relationship in terms of air/water temperature, yields a first-order ODE of the form dTw/dt = f(Ta, Tw, t)."
+  },
+  {
+    "chunk_id": "CHUNK_2",
+    "layer": "core",
+    "source": "Piccolroaz et al. 2013 (HESS)",
+    "title": "Governing equation",
+    "text": "The volume-integrated heat equation is ρ·cp·V · dTw/dt = Hnet · A, where ρ is the density of water, cp is the specific heat capacity at constant pressure, and V and A are respectively the volume and area of the surface mixed layer. Define the mixed-layer thickness D = V/A, where D varies seasonally with stratification strength. After linearizing and parameterizing each heat flux term, the final governing equation is: dTw/dt = (1/δ) · [ p1·cos(2π(t/tyr − p2)) + p3 + p4·(Ta − Tw) + p5·Tw ], where Ta is the air temperature (the sole driving input), Tw is the surface water temperature, tyr is the length of one year, and δ = D/Dr is the normalized mixed-layer thickness. The piecewise expression for δ: when Tw ≥ Tr (normal stratification), δ = exp[(Tr−Tw)/p6]; when Tw < Tr (inverse stratification), δ = exp[(Tw−Tr)/p7] + exp[−Tw/p8]. Tr is typically taken as 4°C, corresponding to the critical point at which a lake transitions from normal stratification to inverse stratification."
+  },
+  {
+    "chunk_id": "CHUNK_3",
+    "layer": "core",
+    "source": "Piccolroaz et al. 2013 (HESS)",
+    "title": "Parameter definition table (8-parameter version)",
+    "text": "p1: amplitude of the seasonal forcing term [°C·d⁻¹]. p2: phase of the seasonal forcing term [dimensionless, 0-1]. p3: constant heat input term [°C·d⁻¹]. p4: air-water heat exchange coefficient [d⁻¹], the only term carrying the external forcing Ta information, and cannot be omitted. p5: decay/correction term proportional to the current water temperature [d⁻¹]. p6: decay scale τwarm of the mixed-layer thickness under normal stratification [°C]. p7: decay scale τcold of the mixed-layer thickness under inverse stratification [°C]. p8: decay scale τice corresponding to the ice-cover effect [°C], effective under inverse stratification. The simplified six-parameter version removes p7 and p8; the four-parameter version further removes p1 and p2; the p4·(Ta−Tw) term must not be omitted in any simplified version."
+  },
+  {
+    "chunk_id": "CHUNK_3b",
+    "layer": "extended",
+    "source": "Piccolroaz et al. 2013 (HESS)",
+    "title": "Heat flux decomposition (Eq. 1)",
+    "text": "Before being parameterized into p1-p5, the net heat flux Hnet is originally decomposed as: Hnet = c1·cos(2π(t−c2)/tyr) + c3 + c4·(Ta−Tw) + c5·Tw. c1, c3, c4, and c5 respectively represent the seasonal forcing amplitude, constant heat input, air-water heat exchange coefficient, and the correction term that varies with water temperature; c2 is the seasonal phase. After substituting Hnet into the volume-integrated energy equation and dividing by ρ·cp·Dr, c1, c3, c4, and c5 become p1, p3, p4, and p5 respectively. In other words, p1-p5 are not arbitrarily defined fitting coefficients but have a clear physical origin, and good generated code should preserve this physical correspondence."
+  },
+  {
+    "chunk_id": "CHUNK_3c",
+    "layer": "extended",
+    "source": "Piccolroaz et al. 2013 (HESS)",
+    "title": "Physically plausible parameter ranges",
+    "text": "Physically plausible ranges for the eight parameters (general priors, independent of the specific lake or data window): p1: 0.00-0.33 °C·d⁻¹; p2: 0.00-1.00; p3: -0.12-0.28 °C·d⁻¹; p4: 0.00-0.01 d⁻¹; p5: -0.02-0.00 d⁻¹; p6: 0-15°C; p7: 0-15°C; p8: 0-0.5°C (narrower range, only effective under inverse stratification). These ranges can be used to set the bounds of an optimization algorithm (such as Differential Evolution), and are more consistent with the model's physical constraints than an arbitrarily guessed generic interval."
+  },
+  {
+    "chunk_id": "CHUNK_3d",
+    "layer": "extended",
+    "source": "Piccolroaz et al. 2013 (HESS)",
+    "title": "Model simplification lineage and rationale",
+    "text": "p7 and p8 show poor identifiability on the NDBC dataset (winter water temperature observations are sparse), and p8 has almost no sensitivity on model outputs; based on this, it is reasonable to simplify the 8-parameter model to a 6-parameter one (removing p7, p8, with the mixed-layer thickness under inverse stratification taking its maximum value), and even further to a 4-parameter one (further removing p1, p2, with seasonality absorbed into p4, p5). The Nash-Sutcliffe efficiency metrics of the three versions differ only slightly on the Lake Superior data (about 0.89-0.91), indicating that the simplification is reasonable, but the p4·(Ta−Tw) term, being the only one that carries external forcing information, cannot be omitted in any version."
+  },
+  {
+    "chunk_id": "CHUNK_3e",
+    "layer": "extended",
+    "source": "Piccolroaz et al. 2013 (HESS)",
+    "title": "Calibration methodology comparison (GLUE)",
+    "text": "The original paper used GLUE (based on large-scale Monte Carlo sampling plus likelihood-function filtering) for calibration and uncertainty analysis, with the Nash-Sutcliffe efficiency coefficient E as the evaluation metric: E = 1 − Σ(Tw_obs−Tw_sim)² / Σ(Tw_obs−mean(Tw_obs))². The closer E is to 1, the better the fit; the original paper achieved E≈0.91 (calibration period) and E≈0.90 (validation period) for the eight-parameter version on Lake Superior. This is provided only to help understand why global optimization is more suitable than local optimization for this kind of potentially multimodal objective function; reproducing GLUE itself is not required."
+  },
+  {
+    "chunk_id": "CHUNK_3f",
+    "layer": "core",
+    "source": "Toffolon et al. 2014 (Limnology and Oceanography)",
+    "title": "Cross-lake validation and parameter-morphology relationships",
+    "text": "The simplified air2water model was applied to 14 lakes worldwide with very different morphologies (including Superior, Michigan, Huron, Erie, Ontario, Constance, Garda, Baikal, etc.), and the results show that the Nash-Sutcliffe efficiency index exceeds 0.87 in all cases, with an average absolute error of about 1°C. This paper establishes a quantitative regression relationship between model parameters and lake mean depth — parameters such as p6 (τwarm) are systematically correlated with the thermal inertia of the lake (the deeper the water, the greater the thermal inertia and the more delayed the response), rather than being arbitrarily fitted numbers. This provides a second, independent cross-validation source for parameter initial guesses/search ranges, separate from the original paper."
+  },
+  {
+    "chunk_id": "CHUNK_3g",
+    "layer": "extended",
+    "source": "Adapted from this study's literature review",
+    "title": "Why RAG is included in the prompt comparison",
+    "text": "In the past two years, several studies on LLM code-generation tasks in scientific computing/environmental modeling have found that even when a model outputs code that runs and converges normally, the code often deviates from the underlying physical mechanisms — for example, omitting a key forcing term, confusing the physical meaning of parameters, or fabricating plausible-looking but nonexistent parameter values. Prior work has introduced RAG to retrieve domain documents in order to reduce the risk of this kind of hallucination where the code runs correctly but is physically wrong. This is a task type known to be prone to physical errors, and when generating code, priority should be given to ensuring the accuracy of the equations and the physical meaning of the parameters, rather than merely making the code run."
+  },
+  {
+    "chunk_id": "CHUNK_3h",
+    "layer": "extended",
+    "source": "Piccolroaz 2016 (Advances in Oceanography and Limnology)",
+    "title": "Data adequacy and overfitting risk",
+    "text": "The proportion of missing observation data and the length of the time window significantly affect the reliability of calibration. When too much observation data is missing, or the calibration window is too short, even if the optimization algorithm converges to a very high fit accuracy during training, it may just be overfitting noise, and performance during validation can drop noticeably. When reporting calibration results, an independent evaluation on the validation period must also be provided, along with a statement of the missing-data rate and whether the missing data is concentrated in winter/season-transition periods when key physical processes occur. When designing a calibration workflow, one should proactively be aware of this often-overlooked risk factor of the missing-data distribution."
+  },
+  {
+    "chunk_id": "CHUNK_3i",
+    "layer": "extended",
+    "source": "Piotrowski et al. 2022 (Limnologica)",
+    "title": "Calibration/optimization method comparison",
+    "text": "While proposing a nine-parameter variant (also treating the stratification threshold, fixed at 4°C, as a calibratable parameter), this work systematically compared the performance of 8 different optimization algorithms on this type of model calibration task, including heuristic global optimization methods such as Differential Evolution and Particle Swarm Optimization (PSO), as well as some local/gradient-based methods. The conclusion is that this kind of objective function (multi-parameter, nonlinear, potentially having multiple local optima) is better suited to global heuristic optimization algorithms; pure local optimization is prone to getting stuck in suboptimal solutions, so global optimization is preferred over a default option like scipy.optimize.minimize that is prone to getting stuck in local optima."
+  },
+  {
+    "chunk_id": "CHUNK_3j",
+    "layer": "extended",
+    "source": "Synthesized from multiple air2water family publications",
+    "title": "Model family and common variants",
+    "text": "In addition to the classic 8-parameter version, air2water has several publicly published variants: the 6-parameter and 4-parameter simplified versions (Toffolon et al. 2014) remove p7, p8, and even p1, p2; the 9-parameter version (Piotrowski et al. 2022) also treats the stratification threshold Tr as a parameter to be calibrated; the ice-effect extended version (Fregona et al. 2026) adds an ice-cover dynamics module distinguishing black ice from snow ice; the river variant air2stream (Toffolon & Piccolroaz 2015) additionally introduces discharge as a second driving variable. To avoid confusing the equations or parameter counts of different variants, this task only requires implementing the classic 8-parameter lake version."
+  },
+  {
+    "chunk_id": "CHUNK_4",
+    "layer": "core",
+    "source": "Piccolroaz et al. 2013 (HESS)",
+    "title": "Numerical solution method",
+    "text": "The original paper uses the explicit Euler scheme with a time step of 1 day, corresponding to daily-mean air temperature and water temperature data. The air temperature series needs to be complete (no gaps); missing values in the water temperature series do not participate in the efficiency-metric calculation, but do not need to be filled by interpolation either — they can simply be skipped."
+  },
+  {
+    "chunk_id": "CHUNK_5",
+    "layer": "core",
+    "source": "Piccolroaz et al. 2013 (HESS)",
+    "title": "Study area and data background",
+    "text": "The model was validated on Lake Superior (the largest by area and volume, and the deepest of the North American Great Lakes, a typical dimictic lake: surface water temperature is above 4°C in summer and drops below 4°C in winter). The driving data and the calibration target data come respectively from NOAA's NDBC buoy stations (air temperature) and satellite retrieval/buoy observations (water temperature). The calibration/validation time window used in the original paper (approximately 1985-2002 for calibration, 2003-2011 for validation) differs from the window set in this study (1990-1999 for training, 2000-2004 for validation); this is provided only to give the model structure and physical background, and the specific calibration results or parameter values from the original paper should not be directly copied."
+  },
+  {
+    "chunk_id": "CHUNK_6",
+    "layer": "core",
+    "source": "Usage constraint notice",
+    "title": "Constraint notes written for the LLM",
+    "text": "The content above is intended to help you correctly construct the physical structure and equation form of the Air2Water model. Please complete the parameter calibration on your own based on the given Ta_obs and Tw_obs data, and do not assume or hard-code the example parameter magnitudes listed above — those values come from a different data window, and copying them directly will cause the model to fail to fit the actual data."
+  }
+]
