@@ -93,3 +93,25 @@ python Validation/P6valid.py
 
 Each script prints the calibrated parameters and full performance report, and produces a
 two-panel calibration/validation plot.
+
+
+## Key Findings (Summary)
+
+- Only the RAG condition reliably reproduced the full 8-parameter stratification-switching
+  structure of the original Air2Water model; all other conditions converged on simplified,
+  physically under-specified ODE forms.
+- A specific implementation defect (forcing variable not correctly indexed by time) appeared
+  independently across multiple Prompt conditions at a similar rate (~1/3 of repeated
+  generations), regardless of prompting strategy — indicating a general reliability boundary
+  of prompt engineering that is decoupled from structural sophistication.
+- RAG's benefit was highly dependent on how *actionable* the retrieved content was: a
+  knowledge base containing only descriptive physical background led to repeated calibration
+  failures, while a knowledge base containing explicit parameter bounds and optimizer
+  guidance produced stable, competitive results.
+- Structural complexity did not straightforwardly translate into better fit: a much simpler
+  model (Verification condition) achieved comparable or better goodness-of-fit than the
+  structurally faithful RAG model, illustrating equifinality (Beven, 2006).
+
+See the accompanying dissertation, Chapters 4–5, for the full quantitative results and
+discussion.
+
