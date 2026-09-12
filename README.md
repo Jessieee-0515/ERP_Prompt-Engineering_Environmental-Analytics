@@ -61,7 +61,7 @@ This produces:
 
 ```bash
 export OPENAI_API_KEY="your-api-key"
-python Generation/generate_prompts.py
+python Generated_Code/generate_prompts.py
 ```
 
 This sends each of the six prompts in `prompts/` to a fixed, dated model snapshot at
