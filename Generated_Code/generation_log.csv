@@ -1,0 +1,23 @@
+generation_log
+prompt_condition,prompt_condition,timestamp_utc,model_requested,model_returned,temperature,finish_reason,prompt_tokens,completion_tokens,output_filepath,
+P1_Direct,1,20260811T160239Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,172,994,generation_outputs/P1_Direct/P1_Direct_run1_20260811T160239Z.txt,
+P1_Direct,2,20260811T160254Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,172,980,generation_outputs/P1_Direct/P1_Direct_run2_20260811T160254Z.txt,
+P1_Direct,3,20260812T143403Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,172,977,generation_outputs/P1_Direct/P1_Direct_run3_20260812T143403Z.txt,
+P2_Role,1,20260811T160307Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,189,964,generation_outputs/P2_Role/P2_Role_run1_20260811T160307Z.txt,
+P2_Role,2,20260811T160323Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,189,987,generation_outputs/P2_Role/P2_Role_run2_20260811T160323Z.txt,
+P2_Role,3,20260812T143415Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,189,969,generation_outputs/P2_Role/P2_Role_run3_20260812T143415Z.txt,
+P3_Fewshot (simple),1,20260811T160337Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,431,908,generation_outputs/P3_Fewshot/P3_Fewshot_run1_20260811T160337Z.txt,
+P3_Fewshot (simple),2,20260811T160353Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,431,886,generation_outputs/P3_Fewshot/P3_Fewshot_run2_20260811T160353Z.txt,
+P3_Fewshot (simple),3,20260812T143428Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,431,894,generation_outputs/P3_Fewshot/P3_Fewshot_run3_20260812T143428Z.txt,
+P3_Fewshot (complex),1,20260812T153844Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,448,924,generation_outputs/P3_Fewshot/P3_Fewshot_run1_20260812T153844Z.txt,
+P3_Fewshot (complex),2,20260812T153853Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,448,957,generation_outputs/P3_Fewshot/P3_Fewshot_run2_20260812T153853Z.txt,
+P3_Fewshot (complex),3,20260812T153903Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,448,918,generation_outputs/P3_Fewshot/P3_Fewshot_run3_20260812T153903Z.txt,
+P4_CoT,1,20260811T160403Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,264,942,generation_outputs/P4_CoT/P4_CoT_run1_20260811T160403Z.txt,
+P4_CoT,2,20260811T160412Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,264,894,generation_outputs/P4_CoT/P4_CoT_run2_20260811T160412Z.txt,
+P4_CoT,3,20260812T143439Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,264,937,generation_outputs/P4_CoT/P4_CoT_run3_20260812T143439Z.txt,
+P5_Verification,1,20260811T160422Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,262,1077,generation_outputs/P5_Verification/P5_Verification_run1_20260811T160422Z.txt,
+P5_Verification,2,20260811T160439Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,262,1131,generation_outputs/P5_Verification/P5_Verification_run2_20260811T160439Z.txt,
+P5_Verification,3,20260812T143453Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,265,1089,generation_outputs/P5_Verification/P5_Verification_run3_20260812T143453Z.txt,
+P6_RAG,1,20260812T153914Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,2592,1266,generation_outputs/P6_RAG/P6_RAG_run1_20260812T153914Z.txt,CHUNK_1;CHUNK_1b;CHUNK_2;CHUNK_3;CHUNK_3f;CHUNK_4;CHUNK_5;CHUNK_6;CHUNK_3j;CHUNK_3c;CHUNK_3d;CHUNK_3b
+P6_RAG,2,20260812T153930Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,2592,1184,generation_outputs/P6_RAG/P6_RAG_run2_20260812T153930Z.txt,CHUNK_1;CHUNK_1b;CHUNK_2;CHUNK_3;CHUNK_3f;CHUNK_4;CHUNK_5;CHUNK_6;CHUNK_3j;CHUNK_3c;CHUNK_3d;CHUNK_3b
+P6_RAG,3,20260812T153943Z,gpt-4o-2024-08-06,gpt-4o-2024-08-06,0.0,stop,2592,1087,generation_outputs/P6_RAG/P6_RAG_run3_20260812T153943Z.txt,CHUNK_1;CHUNK_1b;CHUNK_2;CHUNK_3;CHUNK_3f;CHUNK_4;CHUNK_5;CHUNK_6;CHUNK_3j;CHUNK_3c;CHUNK_3d;CHUNK_3b
