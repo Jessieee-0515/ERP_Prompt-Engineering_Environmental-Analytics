@@ -20,7 +20,7 @@ the model's natural-language explanations and its actual code**.
 │                          (model version, timestamps)
 ├── Data/                  Data preparation script and processed calibration/validation CSVs
 ├── Validation/            Train/validation calibration + evaluation scripts, one per condition
-├── Results/               Final quantitative results table and all figures 
+├── Results/               Final quantitative results 
 ├── requirements.txt
 ├── environment_info.md    Exact model version(s) and API configuration used
 └── README.md              This file
