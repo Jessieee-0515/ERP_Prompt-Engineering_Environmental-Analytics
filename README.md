@@ -19,6 +19,7 @@ the model's natural-language explanations and its actual code**.
 ├── Generated_Code/       Batch generation script + generation logs
 │                          (model version, timestamps)
 ├── Data/                  Data preparation script and processed calibration/validation CSVs
+├── RAG/                   RAG's knowledge base and retrieval files
 ├── Validation/            Train/validation calibration + evaluation scripts, one per condition
 ├── Results/               Final quantitative results 
 ├── requirements.txt
