@@ -65,7 +65,7 @@ def run_model(Ta_obs, Tw_obs):
 
 ### Explanation of the Implementation
 
-1. **ODE Definition**: The ODE `dTw/dt = alpha * (Ta - Tw) + beta` models the change in water temperature (`Tw`) based on the difference between air temperature (`Ta`) and water temperature, with parameters `alpha` and `beta` controlling the rate of change and a constant offset, respectively.
+1. **ODE Definition**: The ODE `dTw/dt = alpha * (Ta[int(t)] - Tw) + beta` models the change in water temperature (`Tw`) based on the difference between air temperature (`Ta`) and water temperature, with parameters `alpha` and `beta` controlling the rate of change and a constant offset, respectively.
 
 2. **Numerical Solution**: We use `odeint` from SciPy to numerically solve the ODE over the time series.
 
