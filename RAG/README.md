@@ -1,6 +1,6 @@
 # Appendix RAG (P6) Configuration
 
-This appendix documents the full configuration of the P6 (RAG) prompt condition described in Section 3.4.6, including the knowledge base contents, the segmentation methodology, the retrieval configuration, and the core retrieval code, to support reproducibility and review.
+This appendix documents the full configuration of the P6 (RAG) prompt condition, including the knowledge base contents, the segmentation methodology, the retrieval configuration, and the core retrieval code, to support reproducibility and review.
 
 ## 1. Knowledge Base
 
@@ -31,7 +31,7 @@ The knowledge base consists of 16 retrieval chunks drawn from five independent s
 
 Each chunk was defined as a single self-contained conceptual or physical unit (e.g., one equation block, one parameter table, one methodological claim) so that retrieval operates over semantically coherent units.
 
-Chunks were further assigned to one of two layers. The **core layer** (8 chunks: CHUNK_1, 1b, 2, 3, 3f, 4, 5, 6) contains information indispensable for producing a structurally correct implementation — the governing equation, parameter definitions, the numerical solver specification, the defining case study, and usage constraints. During pilot testing (Section 3.4.5), a pure top-k similarity search over the full 16-chunk pool was found to occasionally omit the governing equation and parameter-table chunks, because these chunks are symbol-dense and text-sparse and therefore score lower on embedding-based semantic similarity than more narrative chunks. To prevent this failure mode, core-layer chunks are exempted from similarity ranking and are always injected in full.
+Chunks were further assigned to one of two layers. The **core layer** (8 chunks: CHUNK_1, 1b, 2, 3, 3f, 4, 5, 6) contains information indispensable for producing a structurally correct implementation — the governing equation, parameter definitions, the numerical solver specification, the defining case study, and usage constraints. During pilot testing, a pure top-k similarity search over the full 16-chunk pool was found to occasionally omit the governing equation and parameter-table chunks, because these chunks are symbol-dense and text-sparse and therefore score lower on embedding-based semantic similarity than more narrative chunks. To prevent this failure mode, core-layer chunks are exempted from similarity ranking and are always injected in full.
 
 The **extended layer** (8 chunks: CHUNK_3b, 3c, 3d, 3e, 3g, 3h, 3i, 3j) contains auxiliary or contextual knowledge — cross-paper corroboration, methodological justification, and model-family disambiguation — that supports but is not strictly required for a correct implementation. These chunks are ranked by cosine similarity to the task query, and only the most relevant subset is retrieved, which keeps the injected context bounded in length (see Section 3).
 
