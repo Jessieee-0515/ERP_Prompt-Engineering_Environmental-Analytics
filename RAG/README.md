@@ -2,7 +2,7 @@
 
 This appendix documents the full configuration of the P6 (RAG) prompt condition described in Section 3.4.6, including the knowledge base contents, the segmentation methodology, the retrieval configuration, and the core retrieval code, to support reproducibility and review.
 
-##1. Knowledge Base
+## 1. Knowledge Base
 
 The knowledge base consists of 16 retrieval chunks drawn from five independent sources plus one general physical-background source: Piccolroaz et al. (2013, HESS), Toffolon et al. (2014, Limnology and Oceanography), Piccolroaz (2016, Advances in Oceanography and Limnology), Piotrowski et al. (2022, Limnologica), a synthesis of air2water model-family literature, and a general lake/ocean surface energy-balance framework.
 
